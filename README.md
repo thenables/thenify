@@ -9,6 +9,31 @@
 [![Downloads][downloads-image]][downloads-url]
 [![Gittip][gittip-image]][gittip-url]
 
+Promisify a callback-based function.
+
+- Preserves function names
+- Uses a native promise implementation if available and tries to fall back to `bluebird`
+- Converts multiple arguments from the callback into an `Array`
+- Resulting function never deoptimizes
+
+An added benefit is that `throw`n errors in that async function will be caught by the promise!
+
+## API
+
+```js
+var thenify = require('thenify');
+
+var somethingAsync = thenify(function somethingAsync(a, b, c, callback) {
+  callback(null, a, b, c);
+});
+```
+
+### var fn = thenify([name], fn)
+
+Promisifies a function.
+Optionally set a custom name to the function,
+defaulting to `fn.name`.
+
 [gitter-image]: https://badges.gitter.im/thenables/thenify.png
 [gitter-url]: https://gitter.im/thenables/thenify
 [npm-image]: https://img.shields.io/npm/v/thenify.svg?style=flat-square
