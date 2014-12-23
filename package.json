@@ -7,7 +7,7 @@
   "repository": "thenables/thenify",
   "dependencies": {
     "native-or-bluebird": "1",
-    "reserved": "^0.1.2"
+    "reserved": "0.1.2"
   },
   "devDependencies": {
     "bluebird": "2",
