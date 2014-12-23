@@ -1,5 +1,6 @@
 
 var Promise = require('native-or-bluebird')
+var reserved = require('reserved')
 
 module.exports = thenify
 
@@ -8,6 +9,8 @@ function thenify(name, $$__fn__$$) {
     $$__fn__$$ = name
     name = $$__fn__$$.name || 'anonymous'
   }
+  name = reserved.indexOf(name) !== -1 ? '_' + name : name;
+
   return eval('(function ' + name + '() {\n'
     + 'var self = this\n'
     + 'var len = arguments.length\n'
