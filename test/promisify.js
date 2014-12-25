@@ -17,7 +17,7 @@ describe('Promisify', function () {
       })
     }
 
-    var prom = promisify('a', fn)
+    var prom = promisify(fn)
 
     prom().catch(function (err) {
       assert.equal(err.message, 'boom')
@@ -33,7 +33,7 @@ describe('Promisify', function () {
       })
     }
 
-    var prom = promisify('a', fn)
+    var prom = promisify(fn)
 
     prom(1, 2).catch(function (err) {
       assert.equal(err.message, 'boom')
@@ -52,18 +52,11 @@ describe('Promisify', function () {
       })
     }
 
-    var prom = promisify('a', fn)
+    var prom = promisify(fn)
 
     prom().then(function (a) {
       assert.equal(a, 1)
       done()
     })
   })
-
-  if (!promisify.bluebird) {
-    it('should name functions', function () {
-      var prom = promisify('lol', function () {})
-      assert.equal(prom.name, 'lol')
-    })
-  }
 })

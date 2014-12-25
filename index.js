@@ -1,13 +1,12 @@
 
 var Promise = require('native-or-bluebird')
+var assert = require('assert')
 
 module.exports = thenify
 
-function thenify(name, $$__fn__$$) {
-  if (typeof name === 'function') {
-    $$__fn__$$ = name
-    name = $$__fn__$$.name || 'anonymous'
-  }
+function thenify($$__fn__$$) {
+  assert(typeof $$__fn__$$ === 'function')
+  var name = $$__fn__$$.name || ''
   return eval('(function ' + name + '() {\n'
     + 'var self = this\n'
     + 'var len = arguments.length\n'

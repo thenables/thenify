@@ -6,9 +6,11 @@ var thenify = require('..')
 it('fn.name', function () {
   function someCrazyName() {}
 
-  assert.equal('someCrazyName', thenify('someCrazyName', someCrazyName).name)
+  assert.equal('someCrazyName', thenify(someCrazyName).name)
   assert.equal('someCrazyName', thenify(someCrazyName).name)
 
+  var noname = function () {}
+  assert.equal('', thenify(noname).name)
 })
 
 it('fn(callback(err))', function () {
@@ -18,7 +20,7 @@ it('fn(callback(err))', function () {
     }, 0)
   }
 
-  return thenify('blah', fn)().then(function () {
+  return thenify(fn)().then(function () {
     throw new Error('bang')
   }).catch(function (err) {
     assert.equal(err.message, 'boom')

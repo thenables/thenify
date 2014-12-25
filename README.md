@@ -28,11 +28,9 @@ var somethingAsync = thenify(function somethingAsync(a, b, c, callback) {
 });
 ```
 
-### var fn = thenify([name], fn)
+### var fn = thenify(fn)
 
 Promisifies a function.
-Optionally set a custom name to the function,
-defaulting to `fn.name`.
 
 [gitter-image]: https://badges.gitter.im/thenables/thenify.png
 [gitter-url]: https://gitter.im/thenables/thenify
