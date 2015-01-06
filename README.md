@@ -15,10 +15,13 @@ Promisify a callback-based function.
 - Uses a native promise implementation if available and tries to fall back to `bluebird`
 - Converts multiple arguments from the callback into an `Array`
 - Resulting function never deoptimizes
+- Supports both callback and promise style
 
 An added benefit is that `throw`n errors in that async function will be caught by the promise!
 
 ## API
+
+- Turn async functions into promises
 
 ```js
 var thenify = require('thenify');
@@ -26,6 +29,19 @@ var thenify = require('thenify');
 var somethingAsync = thenify(function somethingAsync(a, b, c, callback) {
   callback(null, a, b, c);
 });
+```
+
+- Backward compatible with callback
+
+```js
+var thenify = require('thenify').withcallback;
+
+var somethingAsync = thenify(function somethingAsync(a, b, c, callback) {
+  callback(null, a, b, c);
+});
+
+// somethingAsync(a, b, c).then(onFulfilled).catch(onRejected);
+// somethingAsync(a, b, c, function () {});
 ```
 
 ### var fn = thenify(fn)
