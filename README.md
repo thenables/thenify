@@ -34,7 +34,7 @@ var somethingAsync = thenify(function somethingAsync(a, b, c, callback) {
 - Backward compatible with callback
 
 ```js
-var thenify = require('thenify').withcallback;
+var thenify = require('thenify').withCallback;
 
 var somethingAsync = thenify(function somethingAsync(a, b, c, callback) {
   callback(null, a, b, c);
