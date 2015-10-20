@@ -14,7 +14,7 @@ module.exports = thenify
 
 function thenify($$__fn__$$) {
   assert(typeof $$__fn__$$ === 'function')
-  return eval(createWrapper($$__fn__$$.name))
+  return eval(createWrapper($$__fn__$$.name.replace(/\s|bound(?!$)/g,'')))
 }
 
 /**
