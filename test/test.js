@@ -13,6 +13,14 @@ it('fn.name', function () {
   assert.equal('', thenify(noname).name)
 })
 
+it('fn.name (bound function)', function () {
+  function bound() {}
+  assert.equal('bound', thenify(bound).name)
+  
+  var noname = (function () {}).bind(this)
+  assert.equal('', thenify(noname).name)
+})
+
 it('fn(callback(err))', function () {
   function fn(cb) {
     setTimeout(function () {
