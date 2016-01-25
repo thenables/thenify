@@ -9,7 +9,7 @@
     "native-or-bluebird": "1"
   },
   "devDependencies": {
-    "bluebird": "3.1.1",
+    "bluebird": "3.1.3",
     "istanbul": "0",
     "mocha": "2"
   },
