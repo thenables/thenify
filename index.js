@@ -1,5 +1,5 @@
 
-var Promise = require('native-or-bluebird')
+var Promise = require('es6-promise').Promise
 var assert = require('assert')
 
 module.exports = thenify
