@@ -9,9 +9,9 @@
     "native-or-bluebird": "1"
   },
   "devDependencies": {
-    "bluebird": "3.1.1",
-    "istanbul": "0",
-    "mocha": "2"
+    "bluebird": "^3.1.1",
+    "istanbul": "^0.4.0",
+    "mocha": "^2.0.0"
   },
   "scripts": {
     "test": "mocha --reporter spec",
