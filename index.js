@@ -1,5 +1,5 @@
 
-var Promise = require('native-or-bluebird')
+var Promise = require('any-promise')
 var assert = require('assert')
 
 module.exports = thenify

@@ -8,10 +8,10 @@
 [![License][license-image]][license-url]
 [![Downloads][downloads-image]][downloads-url]
 
-Promisify a callback-based function.
+Promisify a callback-based function using [`any-promise`](https://github.com/kevinbeaty/any-promise).
 
 - Preserves function names
-- Uses a native promise implementation if available and tries to fall back to `bluebird`
+- Uses a native promise implementation if available and tries to fall back to a promise implementation such as `bluebird`
 - Converts multiple arguments from the callback into an `Array`
 - Resulting function never deoptimizes
 - Supports both callback and promise style
