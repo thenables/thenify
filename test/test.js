@@ -16,9 +16,11 @@ it('fn.name', function () {
 it('fn.name (bound function)', function () {
   function bound() {}
   assert.equal('bound', thenify(bound).name)
-  
+  assert.equal('bound', thenify.withCallback(bound).name)
+
   var noname = (function () {}).bind(this)
   assert.equal('', thenify(noname).name)
+  assert.equal('', thenify.withCallback(noname).name)
 })
 
 it('fn(callback(err))', function () {
