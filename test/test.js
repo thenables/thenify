@@ -8,9 +8,12 @@ it('fn.name', function () {
 
   assert.equal('someCrazyName', thenify(someCrazyName).name)
   assert.equal('someCrazyName', thenify(someCrazyName).name)
-
+  // In ES6 spec, functions can infer the name of an anonymous function from its syntactic position.
   var noname = function () {}
-  assert.equal('', thenify(noname).name)
+  var name = noname.name
+
+  assert.equal(name, thenify(noname).name)
+  assert.equal(name, thenify.withCallback(noname).name)
 })
 
 it('fn.name (bound function)', function () {
