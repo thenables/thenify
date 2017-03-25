@@ -14,7 +14,7 @@ module.exports = thenify
 
 function thenify($$__fn__$$) {
   assert(typeof $$__fn__$$ === 'function')
-  return eval(createWrapper($$__fn__$$.name))
+  return createWrapper($$__fn__$$)
 }
 
 /**
@@ -27,7 +27,7 @@ function thenify($$__fn__$$) {
 
 thenify.withCallback = function ($$__fn__$$) {
   assert(typeof $$__fn__$$ === 'function')
-  return eval(createWrapper($$__fn__$$.name, true))
+  return createWrapper($$__fn__$$, true)
 }
 
 function createCallback(resolve, reject) {
@@ -41,23 +41,24 @@ function createCallback(resolve, reject) {
   }
 }
 
-function createWrapper(name, withCallback) {
-  name = (name || '').replace(/\s|bound(?!$)/g, '')
-  withCallback = withCallback ?
-    'var lastType = typeof arguments[len - 1]\n'
-    + 'if (lastType === "function") return $$__fn__$$.apply(self, arguments)\n'
-   : ''
-
-  return '(function ' + name + '() {\n'
-    + 'var self = this\n'
-    + 'var len = arguments.length\n'
-    + withCallback
-    + 'var args = new Array(len + 1)\n'
-    + 'for (var i = 0; i < len; ++i) args[i] = arguments[i]\n'
-    + 'var lastIndex = i\n'
-    + 'return new Promise(function (resolve, reject) {\n'
-      + 'args[lastIndex] = createCallback(resolve, reject)\n'
-      + '$$__fn__$$.apply(self, args)\n'
-    + '})\n'
-  + '})'
+function createWrapper(fn, withCallback) {
+    var name = fn.name;
+    name = (name || '').replace(/\s|bound(?!$)/g, '')
+    var newFn = function() {
+        var self = this
+        var len = arguments.length
+        if(withCallback){
+          var lastType = typeof arguments[len - 1]
+          if (lastType === "function") return fn.apply(self, arguments)
+        }
+        var args = new Array(len + 1)
+        for (var i = 0; i < len; ++i) args[i] = arguments[i]
+        var lastIndex = i
+        return new Promise(function(resolve, reject) {
+            args[lastIndex] = createCallback(resolve, reject)
+            fn.apply(self, args)
+        })
+    }
+    Object.defineProperty(newFn, "name", { value: name });
+    return newFn;
 }
