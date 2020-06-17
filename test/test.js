@@ -69,3 +69,27 @@ it('fn(..args, callback())', function () {
     assert.deepEqual(values, [1, 2, 3])
   })
 })
+
+it('unicode function name', function () {
+  function 你好$hello_123(a, b, c, cb) {
+    cb(null, a, b, c)
+  }
+  var wrapper = thenify(你好$hello_123)
+  assert.equal(wrapper.name, '你好$hello_123')
+  wrapper(1, 2, 3).then(function (values) {
+    assert.deepEqual(values, [1, 2, 3])
+  })
+})
+
+it('invalid function name', function () {
+  function fn(a, b, c, cb) {
+    cb(null, a, b, c)
+  }
+
+  Object.defineProperty(fn, 'name', { value: 'fake(){a.b;})();(function(){//' })
+  var wrapper = thenify(fn)
+  assert.equal(wrapper.name, fn.name)
+  wrapper(1, 2, 3).then(function (values) {
+    assert.deepEqual(values, [1, 2, 3])
+  })
+})
