@@ -7,29 +7,29 @@ module.exports = thenify
 /**
  * Turn async functions into promises
  *
- * @param {Function} $$__fn__$$
+ * @param {Function} fn
  * @return {Function}
  * @api public
  */
 
-function thenify($$__fn__$$, options) {
-  assert(typeof $$__fn__$$ === 'function')
-  return createWrapper($$__fn__$$, options)
+function thenify(fn, options) {
+  assert(typeof fn === 'function')
+  return createWrapper(fn, options)
 }
 
 /**
  * Turn async functions into promises and backward compatible with callback
  *
- * @param {Function} $$__fn__$$
+ * @param {Function} fn
  * @return {Function}
  * @api public
  */
 
-thenify.withCallback = function ($$__fn__$$, options) {
-  assert(typeof $$__fn__$$ === 'function')
+thenify.withCallback = function (fn, options) {
+  assert(typeof fn === 'function')
   options = options || {}
   options.withCallback = true
-  return createWrapper($$__fn__$$, options)
+  return createWrapper(fn, options)
 }
 
 function createCallback(resolve, reject, multiArgs) {
@@ -72,6 +72,6 @@ function createWrapper(fn, options) {
       fn.apply(self, args)
     })
   }
-  Object.defineProperty(newFn, 'name', { value: name });
-  return newFn;
+  Object.defineProperty(newFn, 'name', { value: name })
+  return newFn
 }
