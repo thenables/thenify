@@ -67,7 +67,7 @@ function createWrapper(name, options) {
     + 'if (lastType === "function") return $$__fn__$$.apply(self, arguments)\n'
    : ''
 
-  const res = '(function ' + name + '() {\n'
+  return '(function ' + name + '() {\n'
     + 'var self = this\n'
     + 'var len = arguments.length\n'
     + multiArgs
@@ -80,5 +80,4 @@ function createWrapper(name, options) {
       + '$$__fn__$$.apply(self, args)\n'
     + '})\n'
   + '})'
-  return res
 }
