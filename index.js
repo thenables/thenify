@@ -54,6 +54,9 @@ function createCallback(resolve, reject, multiArgs) {
 
 function createWrapper(name, options) {
   name = (name || '').replace(/\s|bound(?!$)/g, '')
+  // avoid atack by invalid function name
+  if (name && !/^[_$a-zA-Z\xA0-\uFFFF][_$a-zA-Z0-9\xA0-\uFFFF]*$/.test(name)) name = '';
+
   options = options || {}
   // default to true
   var multiArgs = options.multiArgs !== undefined ? options.multiArgs : true
@@ -64,7 +67,7 @@ function createWrapper(name, options) {
     + 'if (lastType === "function") return $$__fn__$$.apply(self, arguments)\n'
    : ''
 
-  return '(function ' + name + '() {\n'
+  const res = '(function ' + name + '() {\n'
     + 'var self = this\n'
     + 'var len = arguments.length\n'
     + multiArgs
@@ -77,4 +80,5 @@ function createWrapper(name, options) {
       + '$$__fn__$$.apply(self, args)\n'
     + '})\n'
   + '})'
+  return res
 }
